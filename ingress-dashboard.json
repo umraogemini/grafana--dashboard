@@ -1,0 +1,83 @@
+{
+  "id": null,
+  "title": "Ingress Proxy Metrics",
+  "tags": ["nginx", "ingress", "latency"],
+  "timezone": "browser",
+  "schemaVersion": 27,
+  "version": 1,
+  "refresh": "30s",
+  "panels": [
+    {
+      "type": "graph",
+      "title": "P90 Latency (Ingress)",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.90, sum(rate(nginx_ingress_controller_request_duration_seconds_bucket[5m])) by (le, ingress))",
+          "legendFormat": "{{ingress}}",
+          "refId": "A"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      }
+    },
+    {
+      "type": "graph",
+      "title": "P99 Latency (Ingress)",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.99, sum(rate(nginx_ingress_controller_request_duration_seconds_bucket[5m])) by (le, ingress))",
+          "legendFormat": "{{ingress}}",
+          "refId": "B"
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 12,
+        "h": 8
+      }
+    },
+    {
+      "type": "graph",
+      "title": "Request Count per Service",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "sum(rate(nginx_ingress_controller_requests[1m])) by (service)",
+          "legendFormat": "{{service}}",
+          "refId": "C"
+        }
+      ],
+      "gridPos": {
+        "x": 0,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      }
+    },
+    {
+      "type": "graph",
+      "title": "5xx Error Rate per Service",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "sum(rate(nginx_ingress_controller_requests{status=~\"5..\"}[5m])) by (service)",
+          "legendFormat": "{{service}}",
+          "refId": "D"
+        }
+      ],
+      "gridPos": {
+        "x": 12,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      }
+    }
+  ]
+}

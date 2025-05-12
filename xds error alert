@@ -1,0 +1,25 @@
+resource.type="k8s_container"
+AND resource.labels.container_name="istio-proxy"
+AND severity="ERROR"
+AND (
+  textPayload:"FLEX-10001" OR
+  textPayload:"FD-40009" OR
+  textPayload:"FD-40010" OR
+  textPayload:"FD-40011" OR
+  textPayload:"FD-40012" OR
+  textPayload:"FD-40013" OR
+  textPayload:"FD-40014" OR
+  textPayload:"FD-40015" OR
+  textPayload:"FD-40016" OR
+  textPayload:"FD-40017" OR
+  textPayload:"RD10001" OR
+  textPayload:"RD10014" OR
+  textPayload:"RD10015" OR
+  textPayload:"RD10016" OR
+  textPayload:"RD10024" OR
+  textPayload:"RD10034" OR
+  textPayload:"RD10035" OR
+  textPayload:"RD10044" OR
+  textPayload:"RD10094" OR
+  textPayload:"RD10099"
+)
